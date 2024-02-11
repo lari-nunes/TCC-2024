@@ -10,7 +10,7 @@
 - Este projeto é meu TCC que irá permitir o cadastramento de Usuários em sua tela de Login.
 - Pessoa que será responsável por suas filhas que será Usuário (que será o limpador de piscina).
 - Clientes (pessoas que serão clientes e terão suas piscinas limpas), tudo isso terá um cadastro de Agenda (para agendamento de limpezas com cada cliente). 
-- Produto (que será responsável por cadastrar todos os produtos que será usado em cada limpeza de pisicna).
+- Produto (Usuário será responsável por cadastrar todos os produtos que será usado em cada limpeza de pisicna).
 - Limpeza (que será vinculado com a tabela Produto, que será capaz de cadastrar todas as limpezas dos usuários, como o valor de serviço, forma de pagamento e duração de limpeza).
 - Estoque (que será responsável por controlar todo o gerencimento de produtos usuados por cada Usuário).
 - Tudo isso será desenvolvido pelas tecnlogias: **Java, Spring Boot, React Native (Front-End), PostgreSQL, Autorização, Autenticação e JWT Tokens.**
