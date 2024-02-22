@@ -24,9 +24,15 @@ public class Pessoa implements Serializable {
     @Enumerated(EnumType.STRING)
     private TipoPessoa tp_pessoa;
     private String nm_pessoa;
+    private String email;
     @CPF
     @CNPJ
     private String cpf_cnpj;
+    private String login;
+    private String senha;
     private Boolean in_excluido;
     private LocalDate dt_nascimento;
+    private String telefone1;
+    private String telefone2;
+    private String telefone3;
 }
