@@ -16,7 +16,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class Pessoa implements Serializable {
+public class Pessoa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
