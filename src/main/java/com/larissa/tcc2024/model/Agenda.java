@@ -27,11 +27,11 @@ public class Agenda implements Serializable {
     @Size(max = 200)
     private String observacao;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="id_pessoa")
     private Pessoa pessoa;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="id_servico")
     private Servico servico;
 }

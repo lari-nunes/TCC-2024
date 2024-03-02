@@ -7,7 +7,7 @@ import java.time.LocalDate;
 public record PessoaDTO (
         TipoPessoa tp_pessoa,
         String nm_pessoa,
-        String cpf_cnpj,
+        String cpf,
         Boolean in_excluido,
         LocalDate dt_nascimento,
         String telefone1,

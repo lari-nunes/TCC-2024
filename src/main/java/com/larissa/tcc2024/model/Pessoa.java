@@ -26,8 +26,7 @@ public class Pessoa {
     private String nm_pessoa;
     private String email;
     @CPF
-    @CNPJ
-    private String cpf_cnpj;
+    private String cpf;
     private String login;
     private String senha;
     private Boolean in_excluido;

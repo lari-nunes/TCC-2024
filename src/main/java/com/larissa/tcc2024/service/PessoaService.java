@@ -15,19 +15,25 @@ public class PessoaService {
     
     @Autowired
     private PessoaRepository pessoaRepository;
+
     
     public Pessoa gravarPessoa(Pessoa pessoa){
-        if(pessoaRepository.findByCpf(pessoa.getCpf_cnpj()).isPresent()){
-            throw new RuntimeException("Esse CPF/CPNPJ já existe");
+        if(pessoaRepository.findByCpf(pessoa.getCpf()).isPresent()){
+            throw new RuntimeException("Este CPF já está cadastrado");
         }
-        if(pessoa.getNm_pessoa() == null || pessoa.getCpf_cnpj() == null){
-            throw new RuntimeException("O nome da pessoa e o CPF/CNPJ não podem");
+        if(pessoa.getNm_pessoa() == null || pessoa.getCpf() == null){
+            throw new RuntimeException("O nome da pessoa e o CPF não podem ser nulos");
         }
         return pessoaRepository.save(pessoa);
     }
 
     public List<Pessoa> listarPessoas (){
         return pessoaRepository.findAll();
+    }
+
+    public Optional<Pessoa> login(String login, String senha){
+        Optional<Pessoa> pessoa = pessoaRepository.findByLoginAndSenha(login, senha);
+        return pessoa;
     }
 
     public Optional<Pessoa> buscarPessoaId(UUID id){
