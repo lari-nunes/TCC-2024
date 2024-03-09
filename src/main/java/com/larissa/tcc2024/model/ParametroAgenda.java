@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Table(name = "PARAMETRO_AGENDA")
 @Entity(name = "PARAMETRO_AGENDA")
@@ -17,7 +18,7 @@ public class ParametroAgenda implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private Integer id_parametro_agenda;
+    private UUID id_parametro_agenda;
     private String dia_semana;
     private Integer qtd_semana;
     private LocalDate hr_inicial;

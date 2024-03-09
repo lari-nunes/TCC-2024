@@ -12,7 +12,6 @@ import java.util.UUID;
 @Repository
 public interface PessoaRepository extends JpaRepository<Pessoa, UUID> {
     Optional<Pessoa> findByCpf(String cpf);
-    Optional<Pessoa> findByLoginAndSenha(String login, String senha);
-
+    Optional<Pessoa> findByLogin(String login);
 
 }

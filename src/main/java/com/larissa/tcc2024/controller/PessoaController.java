@@ -1,5 +1,6 @@
 package com.larissa.tcc2024.controller;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.larissa.tcc2024.dto.PessoaDTO;
 import com.larissa.tcc2024.model.Pessoa;
 import com.larissa.tcc2024.repository.PessoaRepository;
@@ -27,6 +28,8 @@ public class PessoaController {
     @PostMapping
     public ResponseEntity<Object> gravarPessoa(@RequestBody Pessoa pessoa){
         try {
+            var passwordHash = BCrypt.withDefaults().hashToString(12, pessoa.getSenha().toCharArray());
+            pessoa.setSenha(passwordHash);
             return ResponseEntity.status(HttpStatus.CREATED).body(pessoaService.gravarPessoa(pessoa));
         } catch (RuntimeException e) {
             if ("CPF inválido".equals(e.getMessage())) {

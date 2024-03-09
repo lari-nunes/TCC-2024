@@ -1,5 +1,6 @@
 package com.larissa.tcc2024.controller;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.larissa.tcc2024.dto.LoginDTO;
 import com.larissa.tcc2024.model.LoginResponse;
 import com.larissa.tcc2024.model.Pessoa;

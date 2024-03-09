@@ -3,19 +3,20 @@ package com.larissa.tcc2024.service;
 import com.larissa.tcc2024.model.Pessoa;
 import com.larissa.tcc2024.repository.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.awt.*;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 @Service
 public class PessoaService {
+
+    private final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
     
     @Autowired
     private PessoaRepository pessoaRepository;
-
     
     public Pessoa gravarPessoa(Pessoa pessoa){
         if(pessoaRepository.findByCpf(pessoa.getCpf()).isPresent()){
@@ -31,10 +32,14 @@ public class PessoaService {
         return pessoaRepository.findAll();
     }
 
-    public Optional<Pessoa> login(String login, String senha){
-        Optional<Pessoa> pessoa = pessoaRepository.findByLoginAndSenha(login, senha);
-        return pessoa;
-    }
+        public Optional<Pessoa> login(String login, String senha){
+            Optional<Pessoa> pessoa = pessoaRepository.findByLogin(login);
+            if (pessoa.isPresent() && bCryptPasswordEncoder.matches(senha, pessoa.get().getSenha())) {
+                return pessoa;
+            }
+            return Optional.empty();
+
+        }
 
     public Optional<Pessoa> buscarPessoaId(UUID id){
         return pessoaRepository.findById(id);
