@@ -1,5 +1,6 @@
 package com.larissa.tcc2024.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -14,13 +15,11 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(of = "id")
-public class Agenda implements Serializable {
+public class Agenda{
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id_agenda;
-    @Size(max = 20)
     private Status status_agendamento;
     private LocalDate dt_agendamento;
     private Boolean in_disponivel;
@@ -29,9 +28,11 @@ public class Agenda implements Serializable {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="id_pessoa")
+    @JsonIgnoreProperties({"hibernateLazyInitializer"})
     private Pessoa pessoa;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="id_servico")
+    @JsonIgnoreProperties({"hibernateLazyInitializer"})
     private Servico servico;
 }

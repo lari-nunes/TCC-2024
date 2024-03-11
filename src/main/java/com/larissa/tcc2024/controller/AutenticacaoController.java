@@ -32,13 +32,4 @@ public class AutenticacaoController {
         }
         return ResponseEntity.ok(new LoginResponse(pessoa.get().getId_pessoa()));
     }
-
-//    @GetMapping("/{login}/{senha}")
-//    public ResponseEntity<Optional<Pessoa>> login(@PathVariable String login, @PathVariable String senha){
-//        Optional<Pessoa> pessoa = pessoaService.login(login, senha);
-//        if (pessoa == null) {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-//        }
-//        return ResponseEntity.ok(pessoa);
-//    }
 }

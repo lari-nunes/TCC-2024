@@ -1,13 +1,13 @@
 package com.larissa.tcc2024.controller;
 
 import com.larissa.tcc2024.model.Agenda;
+import com.larissa.tcc2024.model.Endereco;
 import com.larissa.tcc2024.model.Pessoa;
 import com.larissa.tcc2024.service.AgendaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -21,7 +21,7 @@ public class AgendaController {
 
     @PostMapping
     public ResponseEntity<Object> gravarAgenda(@RequestBody Agenda agenda){
-        return ResponseEntity.status(HttpStatus.CREATED).body(agenda);
+        return ResponseEntity.status(HttpStatus.CREATED).body(agendaService.gravarAgenda(agenda));
     }
 
     @GetMapping
@@ -40,6 +40,7 @@ public class AgendaController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Object> atualizarAgendaId(@PathVariable(value = "id") UUID id, @RequestBody Agenda agenda) {
+
         try {
             Optional<Agenda> agenda1 = agendaService.atualizarAgendaId(id);
 

@@ -32,14 +32,14 @@ public class PessoaService {
         return pessoaRepository.findAll();
     }
 
-        public Optional<Pessoa> login(String login, String senha){
-            Optional<Pessoa> pessoa = pessoaRepository.findByLogin(login);
-            if (pessoa.isPresent() && bCryptPasswordEncoder.matches(senha, pessoa.get().getSenha())) {
-                return pessoa;
-            }
-            return Optional.empty();
-
+    public Optional<Pessoa> login(String login, String senha){
+        Optional<Pessoa> pessoa = pessoaRepository.findByLogin(login);
+        if (pessoa.isPresent() && bCryptPasswordEncoder.matches(senha, pessoa.get().getSenha())) {
+            return pessoa;
         }
+        return Optional.empty();
+
+    }
 
     public Optional<Pessoa> buscarPessoaId(UUID id){
         return pessoaRepository.findById(id);
