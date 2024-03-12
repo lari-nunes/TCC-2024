@@ -28,11 +28,9 @@ public class Agenda{
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="id_pessoa")
-    @JsonIgnoreProperties({"hibernateLazyInitializer"})
     private Pessoa pessoa;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="id_servico")
-    @JsonIgnoreProperties({"hibernateLazyInitializer"})
     private Servico servico;
 }

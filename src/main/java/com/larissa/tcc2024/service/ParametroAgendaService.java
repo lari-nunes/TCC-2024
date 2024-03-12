@@ -20,11 +20,11 @@ public class ParametroAgendaService {
         return parametroAgendaRepository.save(parametroAgenda);
     }
 
-    public List<ParametroAgenda> listarAgendas (){
+    public List<ParametroAgenda> listarParametroAgenda (){
         return parametroAgendaRepository.findAll();
     }
 
-    public Optional<ParametroAgenda> buscarAgendaId(UUID id){
+    public Optional<ParametroAgenda> buscarParametroAgendaId(UUID id){
         return parametroAgendaRepository.findById(id);
     }
 

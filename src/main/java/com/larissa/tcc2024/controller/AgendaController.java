@@ -15,13 +15,15 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/agenda")
 public class AgendaController {
-
     @Autowired
     private AgendaService agendaService;
 
     @PostMapping
     public ResponseEntity<Object> gravarAgenda(@RequestBody Agenda agenda){
-        return ResponseEntity.status(HttpStatus.CREATED).body(agendaService.gravarAgenda(agenda));
+        Agenda agenda1 = agendaService.gravarAgenda(agenda);
+        agenda1.getPessoa();
+        agenda1.getServico();
+        return ResponseEntity.status(HttpStatus.CREATED).body(agenda1);
     }
 
     @GetMapping
