@@ -16,7 +16,6 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Agenda{
-
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id_agenda;

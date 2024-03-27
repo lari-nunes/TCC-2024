@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -18,12 +20,29 @@ public class AgendaController {
     @Autowired
     private AgendaService agendaService;
 
+//    @PostMapping
+//    public ResponseEntity<Object> gravarAgenda(@RequestBody Agenda agenda){
+//        Agenda agenda1 = agendaService.gravarAgenda(agenda);
+//        agenda1.getPessoa();
+//        agenda1.getServico();
+//        return ResponseEntity.status(HttpStatus.CREATED).body(agenda1);
+//    }
+
     @PostMapping
-    public ResponseEntity<Object> gravarAgenda(@RequestBody Agenda agenda){
-        Agenda agenda1 = agendaService.gravarAgenda(agenda);
-        agenda1.getPessoa();
-        agenda1.getServico();
-        return ResponseEntity.status(HttpStatus.CREATED).body(agenda1);
+    public ResponseEntity<Object> gravarAgenda(@RequestBody Agenda agenda) {
+        try {
+            LocalDate dataAtual = LocalDate.now();
+            LocalDate dataAgendamento = agenda.getDt_agendamento();
+
+            if (dataAgendamento.isBefore(dataAtual)) {
+                return ResponseEntity.badRequest().body("Data indisponível.");
+            }
+
+            Agenda agendaSalva = agendaService.gravarAgenda(agenda);
+            return ResponseEntity.status(HttpStatus.CREATED).body(agendaSalva);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao processar a requisição");
+        }
     }
 
     @GetMapping
