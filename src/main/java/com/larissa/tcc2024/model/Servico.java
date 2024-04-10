@@ -21,6 +21,4 @@ public class Servico implements Serializable {
     private UUID id_servico;
     @Size(max = 200)
     private String descricao;
-    private String tmp_estimado;
-    private Double vlr_estimado;
 }

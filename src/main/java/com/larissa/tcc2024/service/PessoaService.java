@@ -17,14 +17,17 @@ public class PessoaService {
     
     @Autowired
     private PessoaRepository pessoaRepository;
-    
+
     public Pessoa gravarPessoa(Pessoa pessoa){
-        if(pessoaRepository.findByCpf(pessoa.getCpf()).isPresent()){
+        Optional<String> pessoaExistente = pessoaRepository.findCpfByCpfCustomQuery(pessoa.getCpf());
+        if (pessoaExistente.isPresent()) {
             throw new RuntimeException("Este CPF já está cadastrado");
         }
-        if(pessoa.getNm_pessoa() == null || pessoa.getCpf() == null){
+
+        if (pessoa.getNm_pessoa() == null || pessoa.getCpf() == null) {
             throw new RuntimeException("O nome da pessoa e o CPF não podem ser nulos");
         }
+
         return pessoaRepository.save(pessoa);
     }
 

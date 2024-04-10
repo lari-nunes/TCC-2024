@@ -1,11 +1,12 @@
 package com.larissa.tcc2024.model;
 
-import jakarta.persistence.*;
+import  jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.validator.constraints.br.CNPJ;
 import org.hibernate.validator.constraints.br.CPF;
 
 import java.io.Serializable;
+import java.sql.Clob;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -25,7 +26,7 @@ public class Pessoa {
     private TipoPessoa tp_pessoa;
     private String nm_pessoa;
     private String email;
-    @CPF
+    @CPF(message = "CPF inválido")
     private String cpf;
     private String login;
     private String senha;
@@ -34,4 +35,7 @@ public class Pessoa {
     private String telefone1;
     private String telefone2;
     private String telefone3;
+    @Lob
+    @Column(name = "entity_value")
+    private String imagem;
 }

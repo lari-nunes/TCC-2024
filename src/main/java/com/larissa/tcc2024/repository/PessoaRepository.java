@@ -11,7 +11,9 @@ import java.util.UUID;
 
 @Repository
 public interface PessoaRepository extends JpaRepository<Pessoa, UUID> {
-    Optional<Pessoa> findByCpf(String cpf);
+//    Optional<Pessoa> findByCpf(String cpf);
     Optional<Pessoa> findByLogin(String login);
 
+    @Query(value = "SELECT p.cpf FROM Pessoa p WHERE p.cpf = :cpf", nativeQuery = true)
+    Optional<String> findCpfByCpfCustomQuery(String cpf);
 }
