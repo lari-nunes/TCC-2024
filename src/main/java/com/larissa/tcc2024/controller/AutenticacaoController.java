@@ -27,6 +27,7 @@ public class AutenticacaoController {
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginDTO loginDTO) {
         Optional<Pessoa> pessoa = pessoaService.login(loginDTO.getLogin(), loginDTO.getSenha());
+
         if (pessoa.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }

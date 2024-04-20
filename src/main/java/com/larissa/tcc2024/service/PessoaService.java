@@ -1,5 +1,6 @@
 package com.larissa.tcc2024.service;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.larissa.tcc2024.model.Pessoa;
 import com.larissa.tcc2024.repository.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,13 +36,13 @@ public class PessoaService {
         return pessoaRepository.findAll();
     }
 
-    public Optional<Pessoa> login(String login, String senha){
+    public Optional<Pessoa> login(String login, String senha) {
+
         Optional<Pessoa> pessoa = pessoaRepository.findByLogin(login);
         if (pessoa.isPresent() && bCryptPasswordEncoder.matches(senha, pessoa.get().getSenha())) {
             return pessoa;
         }
         return Optional.empty();
-
     }
 
     public Optional<Pessoa> buscarPessoaId(UUID id){
