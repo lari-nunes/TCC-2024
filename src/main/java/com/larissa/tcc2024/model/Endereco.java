@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 @Entity(name = "ENDERECO")
 @Table(name = "ENDERECO")
@@ -17,6 +18,7 @@ public class Endereco implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id_endereco;
     private String nm_municipio;
     private String nm_uf;
     private String cep;
@@ -24,8 +26,7 @@ public class Endereco implements Serializable {
     private String bairro;
     private Integer numero;
     private String complemento;
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="id_pessoa")
-    private Pessoa pessoa;
+    @Column(name="id_pessoa")
+    private UUID id_pessoa;
 
 }
