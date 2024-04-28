@@ -2,20 +2,15 @@ package com.larissa.tcc2024.controller;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.larissa.tcc2024.dto.PessoaDTO;
-import com.larissa.tcc2024.dto.PessoaRequestDTO;
 import com.larissa.tcc2024.model.Pessoa;
-import com.larissa.tcc2024.model.PessoaRequest;
 import com.larissa.tcc2024.repository.PessoaRepository;
 import com.larissa.tcc2024.service.PessoaService;
-import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -43,6 +38,11 @@ public class PessoaController {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
             }
         }
+    }
+
+    @GetMapping("/limpadores")
+    public ResponseEntity<List<Pessoa>> listarLimpadores(){
+        return ResponseEntity.status(HttpStatus.OK).body(pessoaService.listarLimpadores());
     }
 
     @GetMapping

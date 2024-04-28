@@ -1,6 +1,5 @@
 package com.larissa.tcc2024.service;
 
-import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.larissa.tcc2024.model.Pessoa;
 import com.larissa.tcc2024.repository.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +33,10 @@ public class PessoaService {
 
     public List<Pessoa> listarPessoas (){
         return pessoaRepository.findAll();
+    }
+
+    public List<Pessoa> listarLimpadores(){
+        return pessoaRepository.findByTpPessoaLimpador();
     }
 
     public Optional<Pessoa> login(String login, String senha) {
