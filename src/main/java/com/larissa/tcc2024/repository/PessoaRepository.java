@@ -3,6 +3,7 @@ package com.larissa.tcc2024.repository;
 import com.larissa.tcc2024.model.Pessoa;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -19,4 +20,7 @@ public interface PessoaRepository extends JpaRepository<Pessoa, UUID> {
 
     @Query(value = "SELECT p.cpf FROM Pessoa p WHERE p.cpf = :cpf", nativeQuery = true)
     Optional<String> findCpfByCpfCustomQuery(String cpf);
+
+    //@Query("SELECT obj FROM Pessoa obj WHERE obj.cpf =:cpf")
+    //Pessoa findByCPF(@Param("cpf") String cpf);
 }

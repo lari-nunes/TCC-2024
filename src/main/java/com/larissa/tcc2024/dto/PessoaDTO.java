@@ -8,14 +8,50 @@ public record PessoaDTO (
         TipoPessoa tp_pessoa,
         String nm_pessoa,
         String cpf,
-        Boolean in_excluido,
-        LocalDate dt_nascimento,
         String telefone1,
-        String telefone2,
-        String telefone3,
         String login,
         String senha,
-        String email
+        String email,
+        String descricao
 ){
 
+    @Override
+    public TipoPessoa tp_pessoa() {
+        return tp_pessoa;
+    }
+
+    @Override
+    public String nm_pessoa() {
+        return nm_pessoa;
+    }
+
+    @Override
+    public String cpf() {
+        return cpf;
+    }
+
+    @Override
+    public String telefone1() {
+        return telefone1;
+    }
+
+    @Override
+    public String login() {
+        return login;
+    }
+
+    @Override
+    public String senha() {
+        return senha;
+    }
+
+    @Override
+    public String email() {
+        return email;
+    }
+
+    @Override
+    public String descricao() {
+        return descricao;
+    }
 }

@@ -4,6 +4,7 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.larissa.tcc2024.dto.PessoaDTO;
 import com.larissa.tcc2024.model.Pessoa;
 import com.larissa.tcc2024.repository.PessoaRepository;
+import com.larissa.tcc2024.service.CustomExceptionTeste;
 import com.larissa.tcc2024.service.PessoaService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,12 +32,8 @@ public class PessoaController {
             var passwordHash = BCrypt.withDefaults().hashToString(12, pessoa.getSenha().toCharArray());
             pessoa.setSenha(passwordHash);
             return ResponseEntity.status(HttpStatus.CREATED).body(pessoaService.gravarPessoa(pessoa));
-        } catch (RuntimeException e) {
-            if ("CPF inválido".equals(e.getMessage())) {
-                return ResponseEntity.badRequest().body("Por favor, insira um CPF válido");
-            } else {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-            }
+        } catch (CustomExceptionTeste e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e);
         }
     }
 

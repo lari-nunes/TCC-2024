@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -18,15 +19,37 @@ public class PessoaService {
     @Autowired
     private PessoaRepository pessoaRepository;
 
-    public Pessoa gravarPessoa(Pessoa pessoa){
-        Optional<String> pessoaExistente = pessoaRepository.findCpfByCpfCustomQuery(pessoa.getCpf());
+//    private Pessoa findByCPF(Pessoa objDTO){
+//        Pessoa obj = pessoaRepository.findByCPF(objDTO.getCpf());
+//        if(obj != null){
+//            return obj;
+//        }
+//        return null;
+//    }
+
+    public Pessoa gravarPessoa(Pessoa pessoa) throws CustomExceptionTeste {
+
+        Optional<Pessoa> pessoaExistente = pessoaRepository.findByLogin(pessoa.getLogin());
         if (pessoaExistente.isPresent()) {
-            throw new RuntimeException("Este CPF já está cadastrado");
+            throw new CustomExceptionTeste("Este login já está cadastrado");
         }
 
-        if (pessoa.getNm_pessoa() == null || pessoa.getCpf() == null) {
-            throw new RuntimeException("O nome da pessoa e o CPF não podem ser nulos");
+        Optional<String> cpfExistente = pessoaRepository.findCpfByCpfCustomQuery(pessoa.getCpf());
+        if (cpfExistente.isPresent()) {
+            throw new CustomExceptionTeste("Este CPF já está cadastrado");
         }
+
+
+        if (pessoa.getNm_pessoa() == null || pessoa.getCpf() == null) {
+            throw new CustomExceptionTeste("Nome CPF não podem ser nulos");
+        }
+
+        if (pessoa.getNm_pessoa() == null ) {
+            throw new CustomExceptionTeste("Nome não pode ");
+        }
+
+        String senhaCriptografada = bCryptPasswordEncoder.encode(pessoa.getSenha());
+        pessoa.setSenha(senhaCriptografada);
 
         return pessoaRepository.save(pessoa);
     }

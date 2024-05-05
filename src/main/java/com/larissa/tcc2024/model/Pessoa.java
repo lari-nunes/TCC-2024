@@ -1,12 +1,11 @@
 package com.larissa.tcc2024.model;
 
+import com.larissa.tcc2024.dto.PessoaDTO;
 import  jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.*;
-import org.hibernate.validator.constraints.br.CNPJ;
 import org.hibernate.validator.constraints.br.CPF;
 
-import java.io.Serializable;
-import java.sql.Clob;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -26,7 +25,7 @@ public class Pessoa {
     private TipoPessoa tp_pessoa;
     private String nm_pessoa;
     private String email;
-    @CPF(message = "CPF inválido")
+    @CPF
     private String cpf;
     private String login;
     private String senha;
@@ -35,7 +34,21 @@ public class Pessoa {
     private String telefone1;
     private String telefone2;
     private String telefone3;
+    @Size(max = 200)
+    private String descricao;
     @Lob
     @Column(name = "entity_value")
     private String imagem;
+
+    public void PessoaDTO(Pessoa obj){
+        this.id_pessoa = getId_pessoa();
+        this.nm_pessoa = getNm_pessoa();
+        this.email = getEmail();
+        this.cpf = getCpf();
+        this.login = getLogin();
+        this.senha = getSenha();
+        this.tp_pessoa = getTp_pessoa();
+        this.telefone1 = getTelefone1();
+        this.descricao = getDescricao();
+    }
 }
