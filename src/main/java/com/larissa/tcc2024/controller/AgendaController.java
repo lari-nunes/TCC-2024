@@ -45,9 +45,13 @@ public class AgendaController {
         }
     }
 
-    @GetMapping
-    public ResponseEntity<List<Agenda>> listarAgendas(){
-        return ResponseEntity.status(HttpStatus.OK).body(agendaService.listarAgendas());
+    @GetMapping("/listarAgendamentos/{id}")
+    public ResponseEntity<Object> listarAgendamentos(@PathVariable UUID id){
+        List<Agenda> agendas = agendaService.listarAgendas(id);
+        if(agendas.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não existe essa agenda");
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(agendas);
     }
 
     @GetMapping("/{id}")

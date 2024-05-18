@@ -42,6 +42,7 @@ public class PessoaController {
         return ResponseEntity.status(HttpStatus.OK).body(pessoaService.listarLimpadores());
     }
 
+
     @GetMapping
     public ResponseEntity<List<Pessoa>> listarPessoas(){
         return ResponseEntity.status(HttpStatus.OK).body(pessoaService.listarPessoas());

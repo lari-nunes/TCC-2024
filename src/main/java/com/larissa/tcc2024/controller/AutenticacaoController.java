@@ -6,6 +6,8 @@ import com.larissa.tcc2024.model.LoginResponse;
 import com.larissa.tcc2024.model.Pessoa;
 import com.larissa.tcc2024.repository.PessoaRepository;
 import com.larissa.tcc2024.service.PessoaService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,14 +20,18 @@ import java.util.UUID;
 @RequestMapping
 public class AutenticacaoController {
 
+
+
     @Autowired
     private PessoaService pessoaService;
 
     @Autowired
     private PessoaRepository pessoaRepository;
 
+
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginDTO loginDTO) {
+
         Optional<Pessoa> pessoa = pessoaService.login(loginDTO.getLogin(), loginDTO.getSenha());
 
         if (pessoa.isEmpty()) {
@@ -33,4 +39,5 @@ public class AutenticacaoController {
         }
         return ResponseEntity.ok(new LoginResponse(pessoa.get().getId_pessoa()));
     }
+
 }

@@ -1,6 +1,8 @@
 package com.larissa.tcc2024.service;
 
+import com.larissa.tcc2024.model.Agenda;
 import com.larissa.tcc2024.model.Pessoa;
+import com.larissa.tcc2024.repository.AgendaRepository;
 import com.larissa.tcc2024.repository.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -15,9 +17,12 @@ import java.util.UUID;
 public class PessoaService {
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-    
+
     @Autowired
     private PessoaRepository pessoaRepository;
+
+    @Autowired
+    private AgendaRepository agendaRepository;
 
 //    private Pessoa findByCPF(Pessoa objDTO){
 //        Pessoa obj = pessoaRepository.findByCPF(objDTO.getCpf());

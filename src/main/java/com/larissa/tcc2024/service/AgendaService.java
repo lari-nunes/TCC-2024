@@ -1,7 +1,6 @@
 package com.larissa.tcc2024.service;
 
 import com.larissa.tcc2024.model.Agenda;
-import com.larissa.tcc2024.model.Pessoa;
 import com.larissa.tcc2024.repository.AgendaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +31,11 @@ public class AgendaService {
         return agendaRepository.save(agenda);
     }
 
-    public List<Agenda> listarAgendas (){
+    public List<Agenda> listarAgendamentos(UUID id){
+        return agendaRepository.listarAgendas(id);
+    }
+
+    public List<Agenda> listarAgendas (UUID id){
         return agendaRepository.findAll();
     }
 
