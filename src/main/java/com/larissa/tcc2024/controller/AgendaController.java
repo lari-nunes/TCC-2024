@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -31,8 +32,8 @@ public class AgendaController {
     @PostMapping
     public ResponseEntity<Object> gravarAgenda(@RequestBody Agenda agenda) {
         try {
-            LocalDate dataAtual = LocalDate.now();
-            LocalDate dataAgendamento = agenda.getDt_agendamento();
+            LocalDateTime dataAtual = LocalDateTime.now();
+            LocalDateTime dataAgendamento = agenda.getDt_agendamento();
 
             if (dataAgendamento.isBefore(dataAtual)) {
                 return ResponseEntity.badRequest().body("Data indisponível.");

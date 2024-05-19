@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -21,8 +22,8 @@ public class AgendaService {
     }
 
     public Agenda gravarAgendaNewData(Agenda agenda) {
-        LocalDate dataAtual = LocalDate.now();
-        LocalDate dataAgendamento = agenda.getDt_agendamento();
+        LocalDateTime dataAtual = LocalDateTime.now();
+        LocalDateTime dataAgendamento = agenda.getDt_agendamento();
 
         if (dataAgendamento.isBefore(dataAtual)) {
             throw new IllegalArgumentException("Não é possível agendar datas passadas do dia de hoje ou adiante!");
