@@ -1,5 +1,6 @@
 package com.larissa.tcc2024.service;
 
+import com.larissa.tcc2024.exceptions.AgendamentoExistenteException;
 import com.larissa.tcc2024.model.Agenda;
 import com.larissa.tcc2024.repository.AgendaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +18,21 @@ public class AgendaService {
     @Autowired
     private AgendaRepository agendaRepository;
 
+    public void verificarAgendamentoExistente(LocalDateTime dataAgendamento) {
+        boolean exists = agendaRepository.existsByDataAgendamento(dataAgendamento);
+        if (exists) {
+            throw new AgendamentoExistenteException("Já existe um agendamento nesse mesmo horário.");
+        }
+    }
+
     public Agenda gravarAgenda(Agenda agenda){
+        verificarAgendamentoExistente(agenda.getDataAgendamento());
         return agendaRepository.save(agenda);
     }
 
     public Agenda gravarAgendaNewData(Agenda agenda) {
         LocalDateTime dataAtual = LocalDateTime.now();
-        LocalDateTime dataAgendamento = agenda.getDt_agendamento();
+        LocalDateTime dataAgendamento = agenda.getDataAgendamento();
 
         if (dataAgendamento.isBefore(dataAtual)) {
             throw new IllegalArgumentException("Não é possível agendar datas passadas do dia de hoje ou adiante!");

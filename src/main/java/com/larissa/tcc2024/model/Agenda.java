@@ -20,8 +20,9 @@ public class Agenda{
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id_agenda;
+    private UUID id_limpador;
     private Status status_agendamento;
-    private LocalDateTime dt_agendamento;
+    private LocalDateTime dataAgendamento;
     private Boolean in_disponivel;
     @Size(max = 200)
     private String observacao;

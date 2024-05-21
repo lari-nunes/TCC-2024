@@ -1,5 +1,6 @@
 package com.larissa.tcc2024.controller;
 
+import com.larissa.tcc2024.exceptions.AgendamentoExistenteException;
 import com.larissa.tcc2024.model.Agenda;
 import com.larissa.tcc2024.model.Endereco;
 import com.larissa.tcc2024.model.Pessoa;
@@ -21,28 +22,29 @@ public class AgendaController {
     @Autowired
     private AgendaService agendaService;
 
-//    @PostMapping
-//    public ResponseEntity<Object> gravarAgenda(@RequestBody Agenda agenda){
-//        Agenda agenda1 = agendaService.gravarAgenda(agenda);
-//        agenda1.getPessoa();
-//        agenda1.getServico();
-//        return ResponseEntity.status(HttpStatus.CREATED).body(agenda1);
-//    }
-
     @PostMapping
     public ResponseEntity<Object> gravarAgenda(@RequestBody Agenda agenda) {
         try {
             LocalDateTime dataAtual = LocalDateTime.now();
-            LocalDateTime dataAgendamento = agenda.getDt_agendamento();
+            LocalDateTime dataAgendamento = agenda.getDataAgendamento();
 
+            // Verifica se a data de agendamento é anterior a data atual
             if (dataAgendamento.isBefore(dataAtual)) {
                 return ResponseEntity.badRequest().body("Data indisponível.");
             }
 
+            // Verifica se já existe um agendamento no mesmo horário
+            agendaService.verificarAgendamentoExistente(dataAgendamento);
+
+            // Salva o novo agendamento
             Agenda agendaSalva = agendaService.gravarAgenda(agenda);
             return ResponseEntity.status(HttpStatus.CREATED).body(agendaSalva);
+        } catch (AgendamentoExistenteException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao processar a requisição");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 
@@ -78,7 +80,7 @@ public class AgendaController {
             agenda2.setStatus_agendamento(agenda.getStatus_agendamento());
             agenda2.setIn_disponivel(agenda.getIn_disponivel());
             agenda2.setObservacao(agenda.getObservacao());
-            agenda2.setDt_agendamento(agenda.getDt_agendamento());
+            agenda2.setDataAgendamento(agenda.getDataAgendamento());
             agenda2.setServico(agenda.getServico());
             agenda2.setPessoa(agenda.getPessoa());
 
