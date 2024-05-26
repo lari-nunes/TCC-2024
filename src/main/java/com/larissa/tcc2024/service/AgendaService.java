@@ -44,6 +44,10 @@ public class AgendaService {
     public List<Agenda> listarAgendamentos(UUID id){
         return agendaRepository.listarAgendas(id);
     }
+    public List<Agenda> listarAgendamentosLimpador(UUID id){
+        System.out.println(id);
+        return agendaRepository.listarAgendasLimpador(id);
+    }
 
     public List<Agenda> listarAgendas (UUID id){
         return agendaRepository.findAll();
