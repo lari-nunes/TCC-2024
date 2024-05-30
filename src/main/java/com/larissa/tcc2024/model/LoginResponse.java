@@ -3,17 +3,18 @@ package com.larissa.tcc2024.model;
 import java.util.UUID;
 
 public class LoginResponse {
-    private String id;
+    private UUID id;
 
     public LoginResponse(UUID id) {
-        this.id = String.valueOf(id);
+        this.id = id;
     }
 
-    public String getId() {
+    // Getter
+    public UUID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 }

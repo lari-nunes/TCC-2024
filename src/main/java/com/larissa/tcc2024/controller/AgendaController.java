@@ -5,6 +5,7 @@ import com.larissa.tcc2024.model.Agenda;
 import com.larissa.tcc2024.model.Endereco;
 import com.larissa.tcc2024.model.Pessoa;
 import com.larissa.tcc2024.service.AgendaService;
+import com.larissa.tcc2024.service.CustomExceptionTeste;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,12 +40,9 @@ public class AgendaController {
             // Salva o novo agendamento
             Agenda agendaSalva = agendaService.gravarAgenda(agenda);
             return ResponseEntity.status(HttpStatus.CREATED).body(agendaSalva);
-        } catch (AgendamentoExistenteException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+        catch (CustomExceptionTeste e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e);
         }
     }
 
@@ -91,7 +89,7 @@ public class AgendaController {
 
             Agenda agendaAtualizada = agendaService.gravarAgenda(agenda2);
             return ResponseEntity.status(HttpStatus.OK).body(agendaAtualizada);
-        } catch (Exception e) {
+        } catch (CustomExceptionTeste e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao processar a requisição");
         }
     }
@@ -108,7 +106,7 @@ public class AgendaController {
             agendaService.deletarAgendaId(agenda);
 
             return ResponseEntity.status(HttpStatus.OK).body("Deletado com sucesso");
-        } catch (Exception e) {
+        } catch (CustomExceptionTeste e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao processar a requisição");
         }

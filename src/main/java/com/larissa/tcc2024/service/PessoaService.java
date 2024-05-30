@@ -1,11 +1,10 @@
 package com.larissa.tcc2024.service;
 
-import com.larissa.tcc2024.model.Agenda;
 import com.larissa.tcc2024.model.Pessoa;
 import com.larissa.tcc2024.repository.AgendaRepository;
 import com.larissa.tcc2024.repository.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
@@ -16,21 +15,14 @@ import java.util.UUID;
 @Service
 public class PessoaService {
 
-    private final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-
     @Autowired
     private PessoaRepository pessoaRepository;
 
     @Autowired
-    private AgendaRepository agendaRepository;
+    private PasswordEncoder passwordEncoder;
 
-//    private Pessoa findByCPF(Pessoa objDTO){
-//        Pessoa obj = pessoaRepository.findByCPF(objDTO.getCpf());
-//        if(obj != null){
-//            return obj;
-//        }
-//        return null;
-//    }
+    @Autowired
+    private AgendaRepository agendaRepository;
 
     public Pessoa gravarPessoa(Pessoa pessoa) throws CustomExceptionTeste {
 
@@ -53,8 +45,9 @@ public class PessoaService {
             throw new CustomExceptionTeste("Nome não pode ");
         }
 
-        String senhaCriptografada = bCryptPasswordEncoder.encode(pessoa.getSenha());
-        pessoa.setSenha(senhaCriptografada);
+        System.out.println(pessoa.getSenha());
+        String senhaCriptografada = passwordEncoder.encode(pessoa.getSenha());
+
 
         return pessoaRepository.save(pessoa);
     }
@@ -62,19 +55,20 @@ public class PessoaService {
     public List<Pessoa> listarPessoas (){
         return pessoaRepository.findAll();
     }
+    public Optional<Pessoa> login(String login, String senha) {
+        Optional<Pessoa> pessoa = pessoaRepository.findByLogin(login);
+        System.out.println(pessoa.get().getSenha());
+        if (pessoa.isPresent() && passwordEncoder.matches(senha, pessoa.get().getSenha())) {
+            return pessoa;
+        }
 
+        return Optional.empty();
+    }
     public List<Pessoa> listarLimpadores(){
         return pessoaRepository.findByTpPessoaLimpador();
     }
 
-    public Optional<Pessoa> login(String login, String senha) {
 
-        Optional<Pessoa> pessoa = pessoaRepository.findByLogin(login);
-        if (pessoa.isPresent() && bCryptPasswordEncoder.matches(senha, pessoa.get().getSenha())) {
-            return pessoa;
-        }
-        return Optional.empty();
-    }
 
     public Optional<Pessoa> buscarPessoaId(UUID id){
         return pessoaRepository.findById(id);

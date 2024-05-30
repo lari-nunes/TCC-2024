@@ -18,10 +18,10 @@ public class AgendaService {
     @Autowired
     private AgendaRepository agendaRepository;
 
-    public void verificarAgendamentoExistente(LocalDateTime dataAgendamento) {
+    public void verificarAgendamentoExistente(LocalDateTime dataAgendamento) throws CustomExceptionTeste{
         boolean exists = agendaRepository.existsByDataAgendamento(dataAgendamento);
         if (exists) {
-            throw new AgendamentoExistenteException("Já existe um agendamento nesse mesmo horário.");
+            throw new CustomExceptionTeste("Já existe um agendamento nesse mesmo horário.");
         }
     }
 
@@ -30,12 +30,12 @@ public class AgendaService {
         return agendaRepository.save(agenda);
     }
 
-    public Agenda gravarAgendaNewData(Agenda agenda) {
+    public Agenda gravarAgendaNewData(Agenda agenda) throws CustomExceptionTeste{
         LocalDateTime dataAtual = LocalDateTime.now();
         LocalDateTime dataAgendamento = agenda.getDataAgendamento();
 
         if (dataAgendamento.isBefore(dataAtual)) {
-            throw new IllegalArgumentException("Não é possível agendar datas passadas do dia de hoje ou adiante!");
+            throw new CustomExceptionTeste("Não é possível agendar datas passadas do dia de hoje ou adiante!");
         }
 
         return agendaRepository.save(agenda);
