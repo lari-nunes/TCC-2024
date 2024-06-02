@@ -19,6 +19,8 @@ public interface AgendaRepository extends JpaRepository<Agenda, UUID> {
     List<Agenda> listarAgendasLimpador(UUID id);
 
 
+
+
     boolean existsByDataAgendamento(LocalDateTime dataAgendamento);
 
 }

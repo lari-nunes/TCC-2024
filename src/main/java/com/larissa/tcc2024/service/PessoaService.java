@@ -1,5 +1,6 @@
 package com.larissa.tcc2024.service;
 
+import com.larissa.tcc2024.model.Agenda;
 import com.larissa.tcc2024.model.Pessoa;
 import com.larissa.tcc2024.repository.AgendaRepository;
 import com.larissa.tcc2024.repository.PessoaRepository;
@@ -8,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -81,4 +83,13 @@ public class PessoaService {
     public void deletarPessoaId(Optional<Pessoa> pessoa){
         pessoaRepository.delete(pessoa.get());
     }
+
+    public List<Pessoa>listarAgendaFiltro(LocalDateTime dataAgendamento, String nm_municipio){
+        System.out.println(dataAgendamento);
+        return pessoaRepository.listarAgendaFiltro(dataAgendamento,nm_municipio);
+    }
+    public List<Pessoa>listarAgendaFiltroData(LocalDateTime dataAgendamento){
+        return pessoaRepository.listarAgendaFiltroData(dataAgendamento);
+    }
+
 }

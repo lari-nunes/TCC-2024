@@ -59,7 +59,6 @@ public class AgendaController {
         List<Agenda> agendas = agendaService.listarAgendamentosLimpador(id);
         return ResponseEntity.status(HttpStatus.OK).body(agendas);
     }
-
     @GetMapping("/{id}")
     public ResponseEntity<Object> agendaPorId(@PathVariable (value = "id") UUID id){
         Optional<Agenda> agenda = agendaService.buscarAgendaId(id);

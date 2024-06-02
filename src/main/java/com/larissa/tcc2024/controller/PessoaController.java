@@ -2,6 +2,7 @@ package com.larissa.tcc2024.controller;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.larissa.tcc2024.dto.PessoaDTO;
+import com.larissa.tcc2024.model.Agenda;
 import com.larissa.tcc2024.model.Pessoa;
 import com.larissa.tcc2024.repository.PessoaRepository;
 import com.larissa.tcc2024.service.CustomExceptionTeste;
@@ -12,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -89,4 +92,20 @@ public class PessoaController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao processar a requisição");
         }
     }
+    @GetMapping("/listaFiltro/{dataAgendamento}")
+    public ResponseEntity<List<Pessoa>> listarAgendaFiltro(
+            @PathVariable LocalDate dataAgendamento,
+            @RequestParam(required = false) String nm_municipio
+    ) {
+
+        List<Pessoa> pessoas;
+        if (nm_municipio != "") {
+
+            pessoas = pessoaService.listarAgendaFiltro(dataAgendamento.atStartOfDay(), nm_municipio);
+        } else {
+            pessoas = pessoaService.listarAgendaFiltroData(dataAgendamento.atStartOfDay());
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(pessoas);
+    }
+
 }
