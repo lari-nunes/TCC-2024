@@ -18,9 +18,11 @@ public interface AgendaRepository extends JpaRepository<Agenda, UUID> {
     @Query(value = "SELECT a.* from Agenda a where a.id_limpador = :id", nativeQuery = true)
     List<Agenda> listarAgendasLimpador(UUID id);
 
+    @Query(value = "SELECT CASE WHEN COUNT(a.*) > 0 THEN true ELSE false END FROM Agenda a WHERE a.id_limpador = :id AND a.data_agendamento = :dataAgendamento", nativeQuery = true)
+    boolean existsByDataAgendamentoLimpador(UUID id,  LocalDateTime dataAgendamento);
 
 
 
-    boolean existsByDataAgendamento(LocalDateTime dataAgendamento);
+    //boolean existsByData_agendamento(LocalDateTime dataAgendamento);
 
 }

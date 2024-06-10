@@ -26,9 +26,7 @@ public class Agenda{
     private Boolean in_disponivel;
     @Size(max = 200)
     private String observacao;
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="id_pessoa")
-    private Pessoa pessoa;
+    private UUID id_pessoa;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="id_servico")
     private Servico servico;

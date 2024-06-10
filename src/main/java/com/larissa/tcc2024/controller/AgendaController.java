@@ -29,13 +29,6 @@ public class AgendaController {
             LocalDateTime dataAtual = LocalDateTime.now();
             LocalDateTime dataAgendamento = agenda.getDataAgendamento();
 
-            // Verifica se a data de agendamento é anterior a data atual
-            if (dataAgendamento.isBefore(dataAtual)) {
-                return ResponseEntity.badRequest().body("Data indisponível.");
-            }
-
-            // Verifica se já existe um agendamento no mesmo horário
-            agendaService.verificarAgendamentoExistente(dataAgendamento);
 
             // Salva o novo agendamento
             Agenda agendaSalva = agendaService.gravarAgenda(agenda);
@@ -84,7 +77,7 @@ public class AgendaController {
             agenda2.setObservacao(agenda.getObservacao());
             agenda2.setDataAgendamento(agenda.getDataAgendamento());
             agenda2.setServico(agenda.getServico());
-            agenda2.setPessoa(agenda.getPessoa());
+            agenda2.setId_pessoa(agenda.getId_pessoa());
 
             Agenda agendaAtualizada = agendaService.gravarAgenda(agenda2);
             return ResponseEntity.status(HttpStatus.OK).body(agendaAtualizada);

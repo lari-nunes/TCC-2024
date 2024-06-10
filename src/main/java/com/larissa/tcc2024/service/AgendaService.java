@@ -19,14 +19,27 @@ public class AgendaService {
     private AgendaRepository agendaRepository;
 
     public void verificarAgendamentoExistente(LocalDateTime dataAgendamento) throws CustomExceptionTeste{
-        boolean exists = agendaRepository.existsByDataAgendamento(dataAgendamento);
-        if (exists) {
-            throw new CustomExceptionTeste("Já existe um agendamento nesse mesmo horário.");
-        }
+        //boolean exists = agendaRepository.existsByDataAgendamento(dataAgendamento);
+        //if (exists) {
+          //  throw new CustomExceptionTeste("Já existe um agendamento nesse mesmo horário.");
+        //}
     }
 
     public Agenda gravarAgenda(Agenda agenda){
-        verificarAgendamentoExistente(agenda.getDataAgendamento());
+        boolean existeDataAgenda = agendaRepository.existsByDataAgendamentoLimpador(agenda.getId_limpador(),agenda.getDataAgendamento());
+        if(existeDataAgenda){
+            throw new CustomExceptionTeste("Não é possível realizar agendamento, o piscineiro já possui limpeza para esse horario!");
+        }
+        LocalDateTime dataAtual = LocalDateTime.now();
+        LocalDateTime dataAgendamento = agenda.getDataAgendamento();
+        System.out.println(dataAgendamento);
+        if (dataAgendamento.isBefore(dataAtual)) {
+            throw new CustomExceptionTeste("Não é possível agendar datas passadas do dia de hoje ou adiante!");
+        }
+        if (dataAgendamento.isBefore(dataAtual.plusHours(3))) {
+            throw new CustomExceptionTeste("O agendamento deve ser feito com pelo menos 3 horas de antecedência!");
+        }
+
         return agendaRepository.save(agenda);
     }
 
