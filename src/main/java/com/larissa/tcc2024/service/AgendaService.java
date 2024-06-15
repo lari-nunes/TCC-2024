@@ -1,12 +1,11 @@
 package com.larissa.tcc2024.service;
 
-import com.larissa.tcc2024.exceptions.AgendamentoExistenteException;
+import com.larissa.tcc2024.dto.AgendamentoDTO;
 import com.larissa.tcc2024.model.Agenda;
 import com.larissa.tcc2024.repository.AgendaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -75,5 +74,9 @@ public class AgendaService {
 
     public void deletarAgendaId(Optional<Agenda> agenda){
         agendaRepository.delete(agenda.get());
+    }
+
+    public List<AgendamentoDTO> listaAgendamentos(UUID id) {
+        return agendaRepository.listaAgendamentos(id);
     }
 }

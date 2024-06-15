@@ -1,6 +1,5 @@
 package com.larissa.tcc2024.service;
 
-import com.larissa.tcc2024.model.Agenda;
 import com.larissa.tcc2024.model.Pessoa;
 import com.larissa.tcc2024.repository.AgendaRepository;
 import com.larissa.tcc2024.repository.PessoaRepository;
@@ -47,7 +46,7 @@ public class PessoaService {
             throw new CustomExceptionTeste("Nome não pode ");
         }
 
-        System.out.println(pessoa.getSenha());
+
         String senhaCriptografada = passwordEncoder.encode(pessoa.getSenha());
 
 

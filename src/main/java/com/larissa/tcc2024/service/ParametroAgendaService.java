@@ -1,8 +1,6 @@
 package com.larissa.tcc2024.service;
 
-import com.larissa.tcc2024.model.Agenda;
 import com.larissa.tcc2024.model.ParametroAgenda;
-import com.larissa.tcc2024.repository.AgendaRepository;
 import com.larissa.tcc2024.repository.ParametroAgendaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

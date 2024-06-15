@@ -1,6 +1,5 @@
 package com.larissa.tcc2024.repository;
 
-import com.larissa.tcc2024.model.Agenda;
 import com.larissa.tcc2024.model.Pessoa;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,28 +13,25 @@ import java.util.UUID;
 
 @Repository
 public interface PessoaRepository extends JpaRepository<Pessoa, UUID> {
-//    Optional<Pessoa> findByCpf(String cpf);
     Optional<Pessoa> findByLogin(String login);
 
-    @Query(value = "SELECT p.* from Pessoa p where p.tp_pessoa = 'USUARIO'", nativeQuery = true)
+    @Query(value = "SELECT p.* FROM Pessoa p WHERE p.tp_pessoa = 'USUARIO'", nativeQuery = true)
     List<Pessoa> findByTpPessoaLimpador();
 
     @Query(value = "SELECT p.cpf FROM Pessoa p WHERE p.cpf = :cpf", nativeQuery = true)
-    Optional<String> findCpfByCpfCustomQuery(String cpf);
+    Optional<String> findCpfByCpfCustomQuery(@Param("cpf") String cpf);
 
-    @Query(value="select p.* from pessoa p " +
-            "left join agenda a on (p.id_pessoa = a.id_limpador) " +
-            "inner join endereco e on (p.id_pessoa = e.id_pessoa) " +
-            "where a.dataAgendamento != :dataAgendamento or a.dataAgendamento is null " +
-            "and (:nm_municipio is null or e.nm_municipio like %:nm_municipio%) and p.tp_pessoa = 'USUARIO'", nativeQuery = true)
-    List<Pessoa> listarAgendaFiltro(LocalDateTime dataAgendamento, String nm_municipio);
+    @Query(value = "SELECT p.* FROM pessoa p " +
+            "LEFT JOIN agenda a ON p.id_pessoa = a.id_limpador " +
+            "INNER JOIN endereco e ON p.id_pessoa = e.id_pessoa " +
+            "WHERE (a.data_agendamento != :dataAgendamento OR a.data_agendamento IS NULL) " +
+            "AND (:nm_municipio IS NULL OR e.nm_municipio LIKE %:nm_municipio%) " +
+            "AND p.tp_pessoa = 'USUARIO'", nativeQuery = true)
+    List<Pessoa> listarAgendaFiltro(@Param("dataAgendamento") LocalDateTime dataAgendamento, @Param("nm_municipio") String nm_municipio);
 
-    @Query(value="select p.* from pessoa p " +
-            "left join agenda a on (p.id_pessoa = a.id_limpador) " +
-            "where a.dataAgendamento != :dataAgendamento or a.dataAgendamento is null and p.tp_pessoa = 'USUARIO'", nativeQuery = true)
-    List<Pessoa> listarAgendaFiltroData(LocalDateTime dataAgendamento);
-
-
-    //@Query("SELECT obj FROM Pessoa obj WHERE obj.cpf =:cpf")
-    //Pessoa findByCPF(@Param("cpf") String cpf);
+    @Query(value = "SELECT p.* FROM pessoa p " +
+            "LEFT JOIN agenda a ON p.id_pessoa = a.id_limpador " +
+            "WHERE (a.data_agendamento != :dataAgendamento OR a.data_agendamento IS NULL) " +
+            "AND p.tp_pessoa = 'USUARIO'", nativeQuery = true)
+    List<Pessoa> listarAgendaFiltroData(@Param("dataAgendamento") LocalDateTime dataAgendamento);
 }

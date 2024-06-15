@@ -1,9 +1,7 @@
 package com.larissa.tcc2024.controller;
 
-import com.larissa.tcc2024.exceptions.AgendamentoExistenteException;
+import com.larissa.tcc2024.dto.AgendamentoDTO;
 import com.larissa.tcc2024.model.Agenda;
-import com.larissa.tcc2024.model.Endereco;
-import com.larissa.tcc2024.model.Pessoa;
 import com.larissa.tcc2024.service.AgendaService;
 import com.larissa.tcc2024.service.CustomExceptionTeste;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -51,6 +48,11 @@ public class AgendaController {
     public ResponseEntity<Object> listarAgendamentosLimpador(@PathVariable UUID id){
         List<Agenda> agendas = agendaService.listarAgendamentosLimpador(id);
         return ResponseEntity.status(HttpStatus.OK).body(agendas);
+    }
+    @GetMapping("/agendamento/{id}")
+    public ResponseEntity<List<AgendamentoDTO>> listaAgendamentos(@PathVariable UUID id) {
+        List<AgendamentoDTO> agendamentosDTO = agendaService.listaAgendamentos(id);
+        return ResponseEntity.ok(agendamentosDTO);
     }
     @GetMapping("/{id}")
     public ResponseEntity<Object> agendaPorId(@PathVariable (value = "id") UUID id){
