@@ -11,6 +11,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -99,13 +100,14 @@ public class PessoaController {
     ) {
 
         List<Pessoa> pessoas;
-        if (nm_municipio != "") {
-
+        if (StringUtils.hasText(nm_municipio)) {
+            System.out.println("entrou aqui");
             pessoas = pessoaService.listarAgendaFiltro(dataAgendamento.atStartOfDay(), nm_municipio);
         } else {
             pessoas = pessoaService.listarAgendaFiltroData(dataAgendamento.atStartOfDay());
         }
         return ResponseEntity.status(HttpStatus.OK).body(pessoas);
     }
+
 
 }
