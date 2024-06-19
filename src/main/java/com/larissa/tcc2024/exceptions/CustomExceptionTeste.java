@@ -1,4 +1,4 @@
-package com.larissa.tcc2024.service;
+package com.larissa.tcc2024.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

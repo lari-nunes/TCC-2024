@@ -3,7 +3,7 @@ package com.larissa.tcc2024.controller;
 import com.larissa.tcc2024.dto.AgendamentoDTO;
 import com.larissa.tcc2024.model.Agenda;
 import com.larissa.tcc2024.service.AgendaService;
-import com.larissa.tcc2024.service.CustomExceptionTeste;
+import com.larissa.tcc2024.exceptions.CustomExceptionTeste;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,6 +1,7 @@
 package com.larissa.tcc2024.service;
 
 import com.larissa.tcc2024.dto.AgendamentoDTO;
+import com.larissa.tcc2024.exceptions.CustomExceptionTeste;
 import com.larissa.tcc2024.model.Agenda;
 import com.larissa.tcc2024.repository.AgendaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class AgendaService {
     @Autowired
     private AgendaRepository agendaRepository;
 
-    public void verificarAgendamentoExistente(LocalDateTime dataAgendamento) throws CustomExceptionTeste{
+    public void verificarAgendamentoExistente(LocalDateTime dataAgendamento) throws CustomExceptionTeste {
         //boolean exists = agendaRepository.existsByDataAgendamento(dataAgendamento);
         //if (exists) {
           //  throw new CustomExceptionTeste("Já existe um agendamento nesse mesmo horário.");

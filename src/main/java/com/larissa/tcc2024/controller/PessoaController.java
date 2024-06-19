@@ -2,10 +2,9 @@ package com.larissa.tcc2024.controller;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.larissa.tcc2024.dto.PessoaDTO;
-import com.larissa.tcc2024.model.Agenda;
 import com.larissa.tcc2024.model.Pessoa;
 import com.larissa.tcc2024.repository.PessoaRepository;
-import com.larissa.tcc2024.service.CustomExceptionTeste;
+import com.larissa.tcc2024.exceptions.CustomExceptionTeste;
 import com.larissa.tcc2024.service.PessoaService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;

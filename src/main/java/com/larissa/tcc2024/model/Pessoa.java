@@ -36,9 +36,6 @@ public class Pessoa {
     private String telefone3;
     @Size(max = 200)
     private String descricao;
-    @Lob
-    @Column(name = "entity_value")
-    private String imagem;
 
     public void PessoaDTO(Pessoa obj){
         this.id_pessoa = getId_pessoa();
