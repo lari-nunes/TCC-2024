@@ -22,9 +22,9 @@ public interface PessoaRepository extends JpaRepository<Pessoa, UUID> {
     Optional<String> findCpfByCpfCustomQuery(@Param("cpf") String cpf);
 
     @Query(value = "SELECT DISTINCT p.* FROM pessoa p " +
-            "INNER JOIN agenda a ON p.id_pessoa = a.id_limpador " +
+            "LEFT JOIN agenda a ON p.id_pessoa = a.id_limpador " +
             "INNER JOIN endereco e ON p.id_pessoa = e.id_pessoa " +
-            "WHERE (a.data_agendamento != :dataAgendamento) " +
+            "WHERE (a.data_agendamento != :dataAgendamento OR a.data_agendamento IS NULL) " +
             "AND (e.nm_municipio LIKE %:nm_municipio%) " +
             "AND p.tp_pessoa = 'USUARIO'", nativeQuery = true)
     List<Pessoa> listarAgendaFiltro(@Param("dataAgendamento") LocalDateTime dataAgendamento, @Param("nm_municipio") String nm_municipio);
